@@ -74,6 +74,33 @@ function solution2(X, Y) {
   return answer;
 }
 
+// 수도 코드
+// 1. 객체로 카운트
+// 2. 객체 비교
+
+// 시도 3 (테스트통과항목 9/19)
+function solution3(X, Y) {
+  const xObj = { 9: 0, 8: 0, 7: 0, 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+  const yObj = { 9: 0, 8: 0, 7: 0, 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+
+  for (let i = 0; i < X.length; i++) {
+    xObj[X[i]] = (xObj[X[i]]) + 1;
+  }
+
+  for (let i = 0; i < Y.length; i++) {
+    yObj[Y[i]] = (yObj[Y[i]]) + 1;
+  }
+
+  let answer = '';
+  for (let i = 9; i >= 0; i--) {
+    if (xObj[i] > 0 && yObj[i] > 0) {
+      answer += i.toString().repeat(Math.min(xObj[i], yObj[i]));
+    }
+  }
+
+  return answer === '' ? '-1' : Number(answer) + '';
+}
+
 // console.log(solution("100", "2345")); // '-1'
 // console.log(solution("100", "203045")); // '0'
 // console.log(solution("100", "123450")); // '10'
