@@ -14,7 +14,7 @@
 // 2. 일치하면 slice
 
 // 시도 1 (테스트통과항목 7/19)
-function solution(X, Y) {
+function solution1(X, Y) {
   let answer = '';
   const xStr = '' + X;
   let yStr = '' + Y;
@@ -37,8 +37,45 @@ function solution(X, Y) {
   return answer;
 }
 
-console.log(solution("100", "2345")); // '-1'
-console.log(solution("100", "203045")); // '0'
-console.log(solution("100", "123450")); // '10'
-console.log(solution("12321", "42531")); // '321'
-console.log(solution("5525", "1255")); // '552'
+// 수도 코드
+// 1. 배열로 정렬
+// 2. 일치하면 반영하고 다음으로 넘어가기
+
+// 시도 2 (테스트통과항목 9/19)
+function solution2(X, Y) {
+  let answer = '';
+  const xArr = X.split('').sort((a, b) => b - a);
+  const yArr = Y.split('').sort((a, b) => b - a);
+
+  let x = 0;
+  let y = 0;
+  while (true) {
+    if (yArr[y] === xArr[x]) {
+      answer += yArr[y];
+      y++;
+      x++;
+    } else if (yArr[y] < xArr[x]) {
+      x++;
+    } else {
+      y++;
+    }
+
+    if (x >= xArr.length || y >= yArr.length) {
+      break;
+    }
+  }
+
+  if (answer === '') {
+    answer = '-1';
+  }
+
+  answer = Number(answer) + '';
+
+  return answer;
+}
+
+// console.log(solution("100", "2345")); // '-1'
+// console.log(solution("100", "203045")); // '0'
+// console.log(solution("100", "123450")); // '10'
+// console.log(solution("12321", "42531")); // '321'
+// console.log(solution("5525", "1255")); // '552'
